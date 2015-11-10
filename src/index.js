@@ -1,4 +1,4 @@
-import {get as getData, setURL} from './file';
+import {read as getData, setURL} from './file';
 import {promptForURL} from './prompt';
 import {start} from './check';
 import {notifyUp, notifyDown} from './notification';

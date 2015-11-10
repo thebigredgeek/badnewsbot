@@ -12,20 +12,49 @@ async function ensure () {
   }
 }
 
-async function get () {
+async function read () {
   await ensure();
   return JSON.parse(await q.nfcall(fs.readFile, fileLoc, 'utf8'));
 }
 
+async function write (data) {
+  await ensure();
+  await q.nfcall(fs.writeFile, fileLoc, JSON.stringify(data), 'utf8');
+  return await read();
+}
+
 async function setURL (url) {
-  var data = await get();
+  var data = await read();
   data.url = url;
   log(`saving url as ${data.url}`);
-  await q.nfcall(fs.writeFile, fileLoc, JSON.stringify(data), 'utf8');
-  return await get();
+  return write(data);
+}
+
+async function recordUp () {
+  var data = await read();
+  if (!data.log) data.log = [];
+  data.log.push({
+    event: 'up',
+    time: new Date().getTime(),
+    url: data.url || null
+  });
+  return write(data);
+}
+
+async function recordDown () {
+  var data = await read();
+  if (!data.log) data.log = [];
+  data.log.push({
+    event: 'down',
+    time: new Date().getTime(),
+    url: data.url || null
+  });
+  return write(data);
 }
 
 export {
-  get,
-  setURL
+  read,
+  setURL,
+  recordUp,
+  recordDown
 };
