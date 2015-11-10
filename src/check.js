@@ -26,8 +26,7 @@ async function check (url) {
       if (emitter._state === emitter.DOWN) emitter.emit(emitter.UP);
       emitter._state = emitter.UP;
     } catch (e) {
-      log(e);
-      if (emitter._state = emitter.UP) emitter.emit(emitter.DOWN);
+      if (emitter._state === emitter.UP) emitter.emit(emitter.DOWN);
       emitter._state = emitter.DOWN;
     }
     inFlight = false;

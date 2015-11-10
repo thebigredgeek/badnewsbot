@@ -8,23 +8,19 @@ async function publish (opts) {
 
 async function notifyUp () {
   log('Notify up');
-  var res;
-
-  try {
-    res = await publish({
-      title: 'Online',
-      message: 'The server is now online'
-    });
-  } catch (e) {
-    console.error(e);
-  }
+  return await publish({
+    title: 'Online',
+    message: 'The server is now online',
+    sound: 'Ping'
+  });
 }
 
 async function notifyDown () {
   log('Notify down');
   return await publish({
     title: 'Offline',
-    message: 'The server is now offline'
+    message: 'The server is now offline',
+    sound: 'Pop'
   });
 }
 
