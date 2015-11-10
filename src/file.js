@@ -4,6 +4,8 @@ import log from './log';
 
 const fileLoc = `${process.cwd()}/.config.json`;
 
+const session_stamp = new Date().getTime();
+
 async function ensure () {
   try {
     await q.nfcall(fs.access, fileLoc, fs.F_OK);
@@ -32,8 +34,8 @@ async function setURL (url) {
 
 async function recordUp () {
   var data = await read();
-  if (!data.log) data.log = [];
-  data.log.push({
+  if (!data[`session_${session_stamp}`]) data[`session_${session_stamp}`] = {stamp: session_stamp, log: []};
+  data[`session_${session_stamp}`].log.push({
     event: 'up',
     time: new Date().getTime(),
     url: data.url || null
@@ -43,8 +45,8 @@ async function recordUp () {
 
 async function recordDown () {
   var data = await read();
-  if (!data.log) data.log = [];
-  data.log.push({
+  if (!data[`session_${session_stamp}`]) data[`session_${session_stamp}`] = {stamp: session_stamp, log: []};
+  data[`session_${session_stamp}`].log.push({
     event: 'down',
     time: new Date().getTime(),
     url: data.url || null
