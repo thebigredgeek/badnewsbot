@@ -9,6 +9,6 @@ Install the project:
 
     $ npm install
 
-Run the bot:
+Run the bot as a daemon:
 
     $ npm start
