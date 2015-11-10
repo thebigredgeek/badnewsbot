@@ -1,0 +1,44 @@
+{
+  "name": "badnewsbot",
+  "version": "0.0.1",
+  "description": "Health check bot with growl notifications",
+  "main": "index.js",
+  "scripts": {
+    "start": "forever start -a -p . -l badnewsbot.log --uid badnewsbot --pidFile badnewsbot.pid --killSignal=SIGTERM -c nodemon index.js --exitcrash --watch server --watch index.js",
+    "stop": "forever stop badnewsbot",
+    "log": "tail -f badnewsbot.log",
+    "lint": "eslint index.js src",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebigredgeek/badnewsbot.git"
+  },
+  "keywords": [
+    "Tool",
+    "Notification",
+    "Growl",
+    "Healthcheck"
+  ],
+  "author": "Andrew E. Rhyne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thebigredgeek/badnewsbot/issues"
+  },
+  "homepage": "https://github.com/thebigredgeek/badnewsbot#readme",
+  "dependencies": {
+    "babel": "5.8.29",
+    "babel-eslint": "^4.1.4",
+    "debug": "^2.2.0",
+    "forever": "^0.15.1",
+    "inquirer": "^0.11.0",
+    "node-notifier": "^4.3.1",
+    "q": "^1.4.1",
+    "request-promise": "^1.0.2"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "eslint": "^1.9.0",
+    "mocha": "^2.3.3"
+  }
+}
